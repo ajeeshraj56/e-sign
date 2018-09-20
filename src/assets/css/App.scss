@@ -1,0 +1,50 @@
+@font-face {
+  font-family: 'lato-regular';
+  src: url('../fonts/Lato-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'lato-light';
+  src: url('../fonts/Lato-Light.ttf') format('truetype');
+}
+
+@import "fontawesome-all.css";
+
+
+body {
+  font-family: lato-regular !important;
+  color: #575a5d;
+}
+.container {
+  margin-top: 30px;
+  padding: 0px;
+  padding-bottom: 60px;
+}
+
+.react-pdf__Page__canvas {
+  width: calc(100% - 10px) !important;
+  height: auto !important;
+}
+.react-pdf__Page__textContent {
+  display: none;
+}
+.sign-button {
+  position: fixed;
+    bottom: 0px;
+    background: white;
+    border-top: 1px solid gray;
+    padding: 10px;
+    z-index: 1;
+    right: 0px;
+    text-align: center;
+}
+.success-message {
+  margin: 100px auto;
+  font-size: 22px;
+  color: #17be17;
+
+  a {
+    color: #0056b3 !important;
+    cursor: pointer;
+  }
+}
