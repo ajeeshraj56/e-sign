@@ -97,7 +97,7 @@ class App extends Component {
                 this.state.status == 3 ?
 
                   <div className='success-message'>
-                    Agreement has been signed successfully. <a href={config.baseUrl+'downloadagreement?id=' + this.state.id + '&fileName=' + this.state.fileName}>Click here</a> to download your signed document
+                    Agreement has been signed successfully. <a href={config.baseUrl+'/downloadagreement?id=' + this.state.id + '&fileName=' + this.state.fileName}>Click here</a> to download your signed document
                 </div>
 
                   : null
