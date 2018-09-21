@@ -17,8 +17,7 @@ class App extends Component {
 
   onProceed = () => {
     this.setState({
-      email: document.getElementById('email').value,
-      mobile: document.getElementById('mobile').value
+      emailMobile: document.getElementById('emailMobile').value
     });
     this.uploadDocument();
   }
@@ -26,7 +25,7 @@ class App extends Component {
   onUploadSuccess = (response) => {
     if (response && response.data && response.data.id) {
       this.setState({ id: response.data.id, fileName: response.data.file_name });
-      this.state.digio.esign(response.data.id, this.state.email);
+      this.state.digio.esign(response.data.id, this.state.emailMobile);
     } else {
       this.state.digio.cancel();
     }
@@ -58,23 +57,9 @@ class App extends Component {
     ServiceHandler.post({
       url: "uploadagreement",
       data: {
-        email: document.getElementById('email').value,
-        mobile: document.getElementById('mobile').value
+        emailMobile: document.getElementById('emailMobile').value
       }
     }, this.onUploadSuccess, this.onUploadFailure)
-  }
-  success = () => {
-    console.log('success');
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-      if (xhttp.readyState == 4 && xhttp.status == 200) {
-        console.log(xhttp.responseText);
-        document.getElementById('link').innerHTML = xhttp.responseText;
-        document.getElementById("loading").style.display = 'none';
-      }
-    };
-    xhttp.open('GET', 'files/downloadfile.php?id=' + id + '&name=' + file_name, true);
-    xhttp.send();
   }
 
   render() {
@@ -85,19 +70,14 @@ class App extends Component {
             this.state.status == 1 ?
               <div className='col-xs-10 col-sm-4 offset-sm-4 offset-xs-1' style={{marginTop: '100px'}}>
                 <div className="form-group">
-                  <label htmlFor="email">Email address:</label>
-                  <input type="email" className="form-control" id="email" defaultValue='vishnuv091@gmail.com'/>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="pwd">Mobile:</label>
-                  <input type="text" className="form-control" id="mobile" defaultValue='8760593017'/>
+                  <label htmlFor="email">Email address / Mobile:</label>
+                  <input type="email" className="form-control" id="emailMobile" />
                 </div>
                 <div id='loading'></div>
                 <div id='result'></div>
                 <button type="submit" className="btn btn-primary" onClick={this.onProceed}>Proceed to esign</button>
               </div>
               :
-
               this.state.status == 2 ?
                 <div className="col-sm-12">
                   <div id='loading'></div>
@@ -117,7 +97,7 @@ class App extends Component {
                 this.state.status == 3 ?
 
                   <div className='success-message'>
-                    Agreement has been signed successfully. <a href={config.baseUrl+'/downloadagreement?id=' + this.state.id + '&fileName=' + this.state.fileName}>Click here</a> to download your signed document
+                    Agreement has been signed successfully. <a href={config.baseUrl+'downloadagreement?id=' + this.state.id + '&fileName=' + this.state.fileName}>Click here</a> to download your signed document
                 </div>
 
                   : null

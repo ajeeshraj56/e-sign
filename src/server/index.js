@@ -42,13 +42,13 @@ app.get("/downloadagreement", (req, res) => {
 
 app.post("/uploadagreement", (req, res) => {
     var base64str = base64_encode(path.join(__dirname, 'USER_MANUAL_OP6_FINAL.pdf'));
-    console.log("email", req.body.email)
+    console.log("emailMobile", req.body.emailMobile)
     var options = {
         method: 'POST',
         body: {
             "signers": [{
-                "identifier": req.body.email,
-                "reason": "Sample verification"
+                "identifier": req.body.emailMobile,
+                "reason": "Go Agreement sign"
             }],
             "expire_in_days": 10,
             "display_on_page": "all",
@@ -92,4 +92,4 @@ function base64_encode(file) {
     return new Buffer(bitmap).toString('base64');
 }
 
-app.listen(8080, () => console.log("Listening on port 8080!"));
+app.listen(7001, () => console.log("Listening on port 7001!"));
