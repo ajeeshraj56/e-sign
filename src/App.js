@@ -17,9 +17,9 @@ class App extends Component {
 
   onProceed = () => {
     this.setState({
-      emailMobile: document.getElementById('emailMobile').value
+      emailMobile: document.getElementById('emailMobile').value,
+      status: 2
     });
-    this.uploadDocument();
   }
 
   onUploadSuccess = (response) => {
@@ -73,22 +73,21 @@ class App extends Component {
                   <label htmlFor="email">Email address / Mobile:</label>
                   <input type="email" className="form-control" id="emailMobile" />
                 </div>
-                <div id='loading'></div>
-                <div id='result'></div>
-                <button type="submit" className="btn btn-primary" onClick={this.onProceed}>Proceed to esign</button>
+                {/* <div id='loading'></div> */}
+                {/* <div id='result'></div> */}
+                <button type="submit" className="btn btn-primary" onClick={this.onProceed}>Submit</button>
               </div>
               :
               this.state.status == 2 ?
                 <div className="col-sm-12">
                   <div id='loading'></div>
                   <div className='col-xs-12 col-sm-8 offset-sm-2 offset-xs-0' style={{ height: 'calc(100vh - 100px)', overflow: 'auto' }}>
-                    <Document file="http://localhost:8080/getagreement" onLoadSuccess={this.onLoadSuccess}>
+                    <Document file={config.baseUrl+'/getagreement'} onLoadSuccess={this.onLoadSuccess}>
                       <Page pageNumber={9} />
                     </Document>
                   </div>
                   <div className="sign-button col-12">
                     <div id='result'></div>
-                    <div style={{margingRight:'10px'}}><input type='checkbox'/> I/We accept the terms and conditions</div>
                     <button type="button" id='link' className="btn btn-primary" onClick={this.uploadDocument}>Proceed to esign</button>
                   </div>
                 </div>
