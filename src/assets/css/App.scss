@@ -48,3 +48,16 @@ body {
     cursor: pointer;
   }
 }
+.fa-arrow-alt-circle-right, .fa-arrow-alt-circle-left
+{
+  color: #007bff !important;
+  cursor: pointer;
+  margin: 5px
+}
+
+.fa-arrow-alt-circle-right.disabled, .fa-arrow-alt-circle-left.disabled
+{
+  color: gray !important;
+  cursor: not-allowed;
+  user-select: none;
+}

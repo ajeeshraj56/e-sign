@@ -9,10 +9,12 @@ window.$ = window.jQuery = require('jquery');
 class App extends Component {
 
   state = {
-    status: 1,
+    status: 2,
     id: null,
     fileName: null,
-    digio: null
+    digio: null,
+    pageNumber: null,
+    numPages: null
   }
 
   onProceed = () => {
@@ -33,6 +35,10 @@ class App extends Component {
 
   onUploadFailure = (response) => {
     this.state.digio.cancel();
+  }
+
+  onLoadSuccess = (page) => {
+    this.setState({ numPages: page.numPages, pageNumber: 1 })
   }
 
   uploadDocument = () => {
@@ -68,7 +74,7 @@ class App extends Component {
         <div className="row col-sm-12">
           {
             this.state.status == 1 ?
-              <div className='col-xs-10 col-sm-4 offset-sm-4 offset-xs-1' style={{marginTop: '100px'}}>
+              <div className='col-xs-10 col-sm-4 offset-sm-4 offset-xs-1' style={{ marginTop: '100px' }}>
                 <div className="form-group">
                   <label htmlFor="email">Email address / Mobile:</label>
                   <input type="email" className="form-control" id="emailMobile" />
@@ -81,12 +87,19 @@ class App extends Component {
               this.state.status == 2 ?
                 <div className="col-sm-12">
                   <div id='loading'></div>
-                  <div className='col-xs-12 col-sm-8 offset-sm-2 offset-xs-0' style={{ height: 'calc(100vh - 100px)', overflow: 'auto' }}>
-                    <Document file={config.baseUrl+'/getagreement'} onLoadSuccess={this.onLoadSuccess}>
-                      <Page pageNumber={9} />
+                  <div className='col-xs-12 col-sm-8 offset-sm-2 offset-xs-0' style={{ height: 'calc(100vh - 130px)', overflow: 'auto' }}>
+
+                    <Document file={config.baseUrl + '/getagreement'} onLoadSuccess={this.onLoadSuccess}>
+                      <Page pageNumber={this.state.pageNumber} />
                     </Document>
+
                   </div>
+
                   <div className="sign-button col-12">
+                    {this.state.pageNumber}/{this.state.numPages}
+                    <a onClick={() => this.state.pageNumber > 1 ? this.setState({ pageNumber: this.state.pageNumber - 1 }) : null} className={"fas fa-arrow-alt-circle-left " + (this.state.pageNumber > 1 ? '' : 'disabled')}></a>
+                    <a onClick={() => this.state.numPages > this.state.pageNumber ? this.setState({ pageNumber: this.state.pageNumber + 1 }) : null} className={"fas fa-arrow-alt-circle-right " + (this.state.numPages > this.state.pageNumber ? '' : 'disabled')}></a>
+
                     <div id='result'></div>
                     <button type="button" id='link' className="btn btn-primary" onClick={this.uploadDocument}>Proceed to esign</button>
                   </div>
@@ -96,7 +109,7 @@ class App extends Component {
                 this.state.status == 3 ?
 
                   <div className='success-message'>
-                    Agreement has been signed successfully. <a href={config.baseUrl+'/downloadagreement?id=' + this.state.id + '&fileName=' + this.state.fileName}>Click here</a> to download your signed document
+                    Agreement has been signed successfully. <a href={config.baseUrl + '/downloadagreement?id=' + this.state.id + '&fileName=' + this.state.fileName}>Click here</a> to download your signed document
                 </div>
 
                   : null
