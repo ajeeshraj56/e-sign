@@ -63,7 +63,7 @@ class App extends Component {
     ServiceHandler.post({
       url: "uploadagreement",
       data: {
-        emailMobile: document.getElementById('emailMobile').value
+        emailMobile: this.state.emailMobile
       }
     }, this.onUploadSuccess, this.onUploadFailure)
   }
