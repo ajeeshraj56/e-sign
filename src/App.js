@@ -9,7 +9,7 @@ window.$ = window.jQuery = require('jquery');
 class App extends Component {
 
   state = {
-    status: 2,
+    status: 1,
     id: null,
     fileName: null,
     digio: null,
