@@ -19,9 +19,10 @@ class App extends Component {
 
   onProceed = () => {
     this.setState({
-      emailMobile: document.getElementById('emailMobile').value,
-      status: 2
+      emailMobile: document.getElementById('emailMobile').value
     });
+
+    this.uploadDocument();
   }
 
   onUploadSuccess = (response) => {
@@ -79,8 +80,8 @@ class App extends Component {
                   <label htmlFor="email">Email address / Mobile:</label>
                   <input type="email" className="form-control" id="emailMobile" />
                 </div>
-                {/* <div id='loading'></div> */}
-                {/* <div id='result'></div> */}
+                 <div id='loading'></div> 
+                 <div id='result'></div> 
                 <button type="submit" className="btn btn-primary" onClick={this.onProceed}>Submit</button>
               </div>
               :
